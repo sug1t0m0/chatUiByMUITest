@@ -7,6 +7,9 @@ import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import Paper from "@material-ui/core/Paper";
+import { Chat } from "./chat";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Switch from "@material-ui/core/Switch";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -33,9 +36,23 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function ButtonAppBar() {
   const classes = useStyles();
 
-  const a = new Array(100).fill(0).map(index => {
-    return <div>aaa</div>;
-  });
+  const [checked, setChecked] = React.useState(false);
+  const handleChange = () => {
+    setChecked(prev => !prev);
+  };
+
+  const [count, setCount] = React.useState(0);
+  const countUp = () => {
+    setCount(count => ++count);
+  };
+
+  const a = new Array(10).fill(0).reduce((a, _, index: number) => {
+    const isNew = index === count;
+    if (index <= count) {
+      a.push(<Chat countUp={countUp} key={index} isNew={isNew} />);
+    }
+    return a;
+  }, []);
 
   return (
     <div className={classes.root}>
@@ -53,11 +70,17 @@ export default function ButtonAppBar() {
             <Typography variant="h6" className={classes.title}>
               News
             </Typography>
+            <FormControlLabel
+              control={<Switch checked={checked} onChange={handleChange} />}
+              label="Show"
+            />
             <Button color="inherit">Icon1</Button>
             <Button color="inherit">Icon2</Button>
           </Toolbar>
         </AppBar>
-        <div className={classes.contentBlock}>{a}</div>
+        <div className={classes.contentBlock} id={"scroll-test"}>
+          {a}
+        </div>
       </Paper>
     </div>
   );
