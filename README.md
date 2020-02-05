@@ -1,2 +1,0 @@
-# chatUiByMUITest
-Created with CodeSandbox
