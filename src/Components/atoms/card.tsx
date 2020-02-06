@@ -1,4 +1,5 @@
 import * as React from "react";
+import { generateBaloons } from "../../logics/messageChunkGenerater";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -45,14 +46,59 @@ export default function ButtonAppBar() {
   const countUp = () => {
     setCount(count => ++count);
   };
-
-  const a = new Array(10).fill(0).reduce((a, _, index: number) => {
-    const isNew = index === count;
-    if (index <= count) {
-      a.push(<Chat countUp={countUp} key={index} isNew={isNew} />);
+  const sampleMessags = [
+    {
+      id: 0,
+      optionString: "これはなに？",
+      questionersMessageString: "これはなんですか？",
+      ownMessages: [
+        "これは〇〇というものです",
+        "これについて何が知りたいですか？"
+      ],
+      options: [
+        {
+          id: 1,
+          url: "id_1"
+        },
+        {
+          id: 2,
+          url: "id_2"
+        }
+      ]
+    },
+    {
+      id: 1,
+      optionString: "あれはなに？",
+      questionersMessageString: "あれはなんですか？",
+      ownMessages: [
+        "これは〇〇というものです",
+        "これについて何が知りたいですか？"
+      ],
+      options: []
+    },
+    {
+      id: 2,
+      optionString: "それはなに？",
+      questionersMessageString: "それはなんですか？",
+      ownMessages: ["それは〇〇というものです", "終わります"],
+      options: []
     }
-    return a;
-  }, []);
+  ];
+
+  console.warn(generateBaloons(0, sampleMessags))
+  const messages = new Array(10)
+    .fill(0)
+    .reduce((prevElems, _, index: number) => {
+      const isNew = index === count;
+      const isOwn = index % 2;
+      console.log(isOwn);
+      if (index <= count) {
+        prevElems.push(
+          <Chat countUp={countUp} key={index} isNew={isNew} isOwn={isOwn} />
+        );
+      }
+      return prevElems;
+    }, []);
 
   return (
     <div className={classes.root}>
@@ -79,7 +125,7 @@ export default function ButtonAppBar() {
           </Toolbar>
         </AppBar>
         <div className={classes.contentBlock} id={"scroll-test"}>
-          {a}
+          {messages}
         </div>
       </Paper>
     </div>

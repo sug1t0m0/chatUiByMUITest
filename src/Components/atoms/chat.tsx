@@ -8,11 +8,18 @@ const useStyles = makeStyles((theme: Theme) =>
     container: {
       display: "flex"
     },
-    paper: {
-      margin: `${theme.spacing(1)}px ${theme.spacing(1)}px ${theme.spacing(
-        1
-      )}px auto`,
-      width: "70%"
+    paper: (props: Props) => {
+      return {
+        margin: props.isOwn
+          ? `${theme.spacing(1)}px ${theme.spacing(1)}px ${theme.spacing(
+              1
+            )}px auto`
+          : `${theme.spacing(1)}px auto ${theme.spacing(1)}px ${theme.spacing(
+              1
+            )}px `,
+        backgroundColor: props.isOwn ? "#ffcccc" : "#ccffcc",
+        width: "70%"
+      };
     },
     svg: {
       width: 100,
@@ -28,10 +35,11 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface Props {
   isNew: boolean;
+  isOwn: boolean;
   countUp: () => void;
 }
 export const Chat: React.FC<Props> = (props: Props) => {
-  const classes = useStyles();
+  const classes = useStyles(props);
   useEffect(() => {
     const target = document.getElementById("scroll-test");
     target.scrollTop = target.scrollHeight;
@@ -47,7 +55,7 @@ export const Chat: React.FC<Props> = (props: Props) => {
       {props.isNew ? (
         <Grow
           in={true}
-          style={{ transformOrigin: "0 0 0" }}
+          style={{ transformOrigin: props.isOwn ? "100% 0 0" : "0 0 0" }}
           {...{ timeout: 900 }}
         >
           <Paper elevation={4} className={classes.paper}>
