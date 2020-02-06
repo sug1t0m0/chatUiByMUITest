@@ -1,5 +1,5 @@
 import * as React from "react";
-import { generateBaloons } from "../../logics/messageChunkGenerater";
+import { generateBaloons } from "../../logics/generateBaloons";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -85,7 +85,7 @@ export default function ButtonAppBar() {
     }
   ];
 
-  console.warn(generateBaloons(0, sampleMessags))
+  console.warn(generateBaloons(0, sampleMessags));
   const messages = new Array(10)
     .fill(0)
     .reduce((prevElems, _, index: number) => {
