@@ -8,7 +8,7 @@ import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import Paper from "@material-ui/core/Paper";
-import { Chat } from "./chat";
+import { BaloonPaper } from "../molecules/baloon";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 
@@ -86,19 +86,18 @@ export default function ButtonAppBar() {
   ];
 
   console.warn(generateBaloons(0, sampleMessags));
-  const messages = new Array(10)
-    .fill(0)
-    .reduce((prevElems, _, index: number) => {
+  const messages = generateBaloons(0, sampleMessags).reduce(
+    (prevElems, baloon, index: number) => {
       const isNew = index === count;
-      const isOwn = index % 2;
-      console.log(isOwn);
       if (index <= count) {
         prevElems.push(
-          <Chat countUp={countUp} key={index} isNew={isNew} isOwn={isOwn} />
+          <BaloonPaper key={index} {...{ baloon, isNew, countUp }} />
         );
       }
       return prevElems;
-    }, []);
+    },
+    []
+  );
 
   return (
     <div className={classes.root}>
