@@ -60,10 +60,11 @@ export const BaloonPaper: React.FC<Props> = (props: Props) => {
         >
           <Paper elevation={4} className={classes.paper}>
             <Typography>{props.baloon.messageString}</Typography>
-            {props.baloon.baloonOptions.map(baloonOption => {
+            {props.baloon.baloonOptions.map((baloonOption, i) => {
               return (
                 <OptionPaper
                   {...{
+                    key: i,
                     baloonOption,
                     setId: props.setId,
                     updateIds: props.updateIds,
@@ -77,10 +78,11 @@ export const BaloonPaper: React.FC<Props> = (props: Props) => {
       ) : (
         <Paper elevation={4} className={classes.paper}>
           <Typography>{props.baloon.messageString}</Typography>
-          {props.baloon.baloonOptions.map(baloonOption => {
+          {props.baloon.baloonOptions.map((baloonOption, i) => {
             return (
               <OptionPaper
                 {...{
+                  key: i,
                   baloonOption,
                   setId: props.setId,
                   updateIds: props.updateIds,
