@@ -1,5 +1,5 @@
 import * as React from "react";
-import { generateBaloons } from "../../logics/generateBaloons";
+import { generateBaloons, Baloon } from "../../logics/generateBaloons";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     contentBlock: {
       overflowY: "scroll",
-      height: "300px"
+      height: "150px"
     },
     paper: {},
     menuButton: {
@@ -46,8 +46,17 @@ export default function ButtonAppBar() {
   const countUp = () => {
     setCount(count => ++count);
   };
+  const resetCount = () => {
+    setCount(0);
+  };
 
   const [id, setId] = React.useState(0);
+
+  const [ids, setIds] = React.useState([0]);
+  const updateIds = (id: number) => {
+    const nextIds = ids.concat(id);
+    setIds(nextIds);
+  };
 
   const sampleMessags = [
     {
@@ -88,6 +97,37 @@ export default function ButtonAppBar() {
     }
   ];
 
+  const BaloonPapers = ids.reduce((prevBaloonPapers, id, index) => {
+    if (index < ids.length - 1) {
+      const isNew = false;
+      const baloons = generateBaloons(id, sampleMessags).map(
+        (b, i): React.Element[] => (
+          <BaloonPaper
+            key={`${index}${i}`}
+            {...{ baloon: b, isNew, countUp, setId, resetCount, updateIds }}
+          />
+        )
+      );
+      prevBaloonPapers.push(...baloons);
+    } else {
+      const baloons = generateBaloons(id, sampleMessags).reduce((pb, b, i) => {
+        const isNew = i === count;
+        if (i <= count) {
+          pb.push(
+            <BaloonPaper
+              key={`${index}${i}`}
+              {...{ baloon: b, isNew, countUp, setId, resetCount, updateIds }}
+            />
+          );
+        }
+        return pb;
+      }, []);
+      prevBaloonPapers.push(...baloons);
+    }
+    return prevBaloonPapers;
+  }, []);
+  console.log(BaloonPapers);
+
   console.warn(generateBaloons(id, sampleMessags));
   const messages = generateBaloons(id, sampleMessags).reduce(
     (prevElems, baloon, index: number) => {
@@ -127,7 +167,7 @@ export default function ButtonAppBar() {
           </Toolbar>
         </AppBar>
         <div className={classes.contentBlock} id={"scroll-test"}>
-          {messages}
+          {BaloonPapers}
         </div>
       </Paper>
     </div>

@@ -32,6 +32,8 @@ interface Props {
   baloon: Baloon;
   countUp: () => void;
   setId: (id: number) => void;
+  updateIds: (id: number) => void;
+  resetCount: () => void;
 }
 export const BaloonPaper: React.FC<Props> = (props: Props) => {
   const classes = useStyles(props);
@@ -59,7 +61,16 @@ export const BaloonPaper: React.FC<Props> = (props: Props) => {
           <Paper elevation={4} className={classes.paper}>
             <Typography>{props.baloon.messageString}</Typography>
             {props.baloon.baloonOptions.map(baloonOption => {
-              return <OptionPaper {...{ baloonOption, setId: props.setId }} />;
+              return (
+                <OptionPaper
+                  {...{
+                    baloonOption,
+                    setId: props.setId,
+                    updateIds: props.updateIds,
+                    resetCount: props.resetCount
+                  }}
+                />
+              );
             })}
           </Paper>
         </Grow>
@@ -67,7 +78,16 @@ export const BaloonPaper: React.FC<Props> = (props: Props) => {
         <Paper elevation={4} className={classes.paper}>
           <Typography>{props.baloon.messageString}</Typography>
           {props.baloon.baloonOptions.map(baloonOption => {
-            return <OptionPaper {...{ baloonOption, setId: props.setId }} />;
+            return (
+              <OptionPaper
+                {...{
+                  baloonOption,
+                  setId: props.setId,
+                  updateIds: props.updateIds,
+                  resetCount: props.resetCount
+                }}
+              />
+            );
           })}
         </Paper>
       )}

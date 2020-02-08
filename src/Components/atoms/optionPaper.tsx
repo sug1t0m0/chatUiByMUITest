@@ -23,14 +23,17 @@ const useStyles = makeStyles((theme: Theme) =>
 interface Props {
   baloonOption: BaloonOption;
   setId: (id: number) => void;
+  updateIds: (id: number) => void;
+  resetCount: () => void;
 }
 export const OptionPaper: React.FC<Props> = (props: Props) => {
   const classes = useStyles(props);
+  const handleClick = () => {
+    props.updateIds(props.baloonOption.id);
+    props.resetCount();
+  };
   return (
-    <Paper
-      className={classes.paper}
-      onClick={() => props.setId(props.baloonOption.id)}
-    >
+    <Paper className={classes.paper} onClick={handleClick}>
       <Typography>{props.baloonOption.optionString}</Typography>
     </Paper>
   );
