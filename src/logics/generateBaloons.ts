@@ -19,7 +19,7 @@ export interface Context {
 export interface Baloon {
   isOwn: boolean;
   messageString: string;
-  options: BaloonOption[];
+  baloonOptions: BaloonOption[];
 }
 
 // TODO テストを書く
@@ -31,19 +31,19 @@ export const generateBaloons = (
   if (!context) {
     return [];
   }
-  const options = generateOpions(contexts, context);
-  const ownMessageBaloons = generateOwnMessageBaloons(context, options);
+  const baloonOptions = generateBaloonOpions(contexts, context);
+  const ownMessageBaloons = generateOwnMessageBaloons(context, baloonOptions);
   return [
     {
       isOwn: false,
       messageString: context.questionersMessageString,
-      options: []
+      baloonOptions: []
     },
     ...ownMessageBaloons
   ];
 };
 
-const generateOpions = (
+const generateBaloonOpions = (
   contexts: Context[],
   context: Context
 ): BaloonOption[] => {
@@ -52,7 +52,7 @@ const generateOpions = (
   }
   // mapで十分だとは思ったが, optionStringが発見できなかった時点で
   // レンダリングの候補から外した方がトラブルは少なそう
-  const options = context.options.reduce(
+  const baloonOptions = context.options.reduce(
     (prevOptions: BaloonOption[], option) => {
       const contex = contexts.find(c => c.id === option.id);
       if (contex) {
@@ -66,19 +66,19 @@ const generateOpions = (
     []
   );
 
-  return options;
+  return baloonOptions;
 };
 
 const generateOwnMessageBaloons = (
   context: Context,
-  options: BaloonOption[]
+  baloonOpions: BaloonOption[]
 ): Baloon[] => {
   const baloons = context.ownMessages.map((message, index) => {
     const isLast = context.ownMessages.length - 1 === index;
     return {
       isOwn: true,
       messageString: message,
-      options: isLast ? options : []
+      baloonOptions: isLast ? baloonOpions : []
     };
   });
   return baloons;

@@ -4,6 +4,7 @@ import Paper from "@material-ui/core/Paper";
 import Grow from "@material-ui/core/Grow";
 import { Baloon } from "../../logics/generateBaloons";
 import Typography from "@material-ui/core/Typography";
+import { OptionPaper } from "../atoms/optionPaper";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -13,24 +14,15 @@ const useStyles = makeStyles((theme: Theme) =>
     paper: (props: Props) => {
       return {
         margin: props.baloon.isOwn
-          ? `${theme.spacing(1)}px ${theme.spacing(1)}px ${theme.spacing(
+          ? `${theme.spacing(1)}px  auto ${theme.spacing(1)}px ${theme.spacing(
               1
-            )}px auto`
-          : `${theme.spacing(1)}px auto ${theme.spacing(1)}px ${theme.spacing(
+            )}px`
+          : `${theme.spacing(1)}px ${theme.spacing(1)}px ${theme.spacing(
               1
-            )}px `,
+            )}px auto`,
         backgroundColor: props.baloon.isOwn ? "#ffcccc" : "#ccffcc",
         width: "70%"
       };
-    },
-    svg: {
-      width: 100,
-      height: 100
-    },
-    polygon: {
-      fill: theme.palette.common.white,
-      stroke: theme.palette.divider,
-      strokeWidth: 1
     }
   })
 );
@@ -39,6 +31,7 @@ interface Props {
   isNew: boolean;
   baloon: Baloon;
   countUp: () => void;
+  setId: (id: number) => void;
 }
 export const BaloonPaper: React.FC<Props> = (props: Props) => {
   const classes = useStyles(props);
@@ -52,6 +45,7 @@ export const BaloonPaper: React.FC<Props> = (props: Props) => {
     }
     return undefined;
   }, []);
+  console.log(props.baloon);
 
   return (
     <div className={classes.container}>
@@ -59,18 +53,22 @@ export const BaloonPaper: React.FC<Props> = (props: Props) => {
       {props.isNew ? (
         <Grow
           in={true}
-          style={{ transformOrigin: props.baloon.isOwn ? "100% 0 0" : "0 0 0" }}
+          style={{ transformOrigin: props.baloon.isOwn ? "0 0 0" : "100% 0 0" }}
           {...{ timeout: 900 }}
         >
           <Paper elevation={4} className={classes.paper}>
             <Typography>{props.baloon.messageString}</Typography>
-            {/* {本当はここにオプションを表示する} */}
+            {props.baloon.baloonOptions.map(baloonOption => {
+              return <OptionPaper {...{ baloonOption, setId: props.setId }} />;
+            })}
           </Paper>
         </Grow>
       ) : (
         <Paper elevation={4} className={classes.paper}>
           <Typography>{props.baloon.messageString}</Typography>
-          {/* {本当はここにオプションを表示する} */}
+          {props.baloon.baloonOptions.map(baloonOption => {
+            return <OptionPaper {...{ baloonOption, setId: props.setId }} />;
+          })}
         </Paper>
       )}
     </div>

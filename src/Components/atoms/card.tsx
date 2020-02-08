@@ -8,7 +8,7 @@ import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import Paper from "@material-ui/core/Paper";
-import { BaloonPaper } from "../molecules/baloon";
+import { BaloonPaper } from "../molecules/baloonPaper";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 
@@ -46,6 +46,9 @@ export default function ButtonAppBar() {
   const countUp = () => {
     setCount(count => ++count);
   };
+
+  const [id, setId] = React.useState(0);
+
   const sampleMessags = [
     {
       id: 0,
@@ -71,8 +74,8 @@ export default function ButtonAppBar() {
       optionString: "あれはなに？",
       questionersMessageString: "あれはなんですか？",
       ownMessages: [
-        "これは〇〇というものです",
-        "これについて何が知りたいですか？"
+        "あれはは〇〇というものです",
+        "あれについて何も知りたくないですね？"
       ],
       options: []
     },
@@ -85,13 +88,13 @@ export default function ButtonAppBar() {
     }
   ];
 
-  console.warn(generateBaloons(0, sampleMessags));
-  const messages = generateBaloons(0, sampleMessags).reduce(
+  console.warn(generateBaloons(id, sampleMessags));
+  const messages = generateBaloons(id, sampleMessags).reduce(
     (prevElems, baloon, index: number) => {
       const isNew = index === count;
       if (index <= count) {
         prevElems.push(
-          <BaloonPaper key={index} {...{ baloon, isNew, countUp }} />
+          <BaloonPaper key={index} {...{ baloon, isNew, countUp, setId }} />
         );
       }
       return prevElems;
