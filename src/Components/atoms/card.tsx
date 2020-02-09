@@ -10,6 +10,8 @@ import MenuIcon from "@material-ui/icons/Menu";
 import Paper from "@material-ui/core/Paper";
 import { BaloonPaper } from "../molecules/baloonPaper";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Loop from "@material-ui/icons/Loop";
+import Clear from "@material-ui/icons/Clear";
 import Switch from "@material-ui/core/Switch";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -36,11 +38,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function ButtonAppBar() {
   const classes = useStyles();
-
-  const [checked, setChecked] = React.useState(false);
-  const handleChange = () => {
-    setChecked(prev => !prev);
-  };
 
   const [count, setCount] = React.useState(0);
   const countUp = () => {
@@ -128,6 +125,13 @@ export default function ButtonAppBar() {
   }, []);
   console.log(BaloonPapers);
 
+  const onClickLoop = () => {
+    if (ids[ids.length - 1] !== 0) {
+      updateIds(0);
+      resetCount();
+    }
+  };
+
   console.warn(generateBaloons(id, sampleMessags));
   const messages = generateBaloons(id, sampleMessags).reduce(
     (prevElems, baloon, index: number) => {
@@ -147,23 +151,9 @@ export default function ButtonAppBar() {
       <Paper className={classes.paper}>
         <AppBar className={classes.appBar} position="static">
           <Toolbar>
-            <IconButton
-              edge="start"
-              className={classes.menuButton}
-              color="inherit"
-              aria-label="menu"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" className={classes.title}>
-              News
-            </Typography>
-            <FormControlLabel
-              control={<Switch checked={checked} onChange={handleChange} />}
-              label="Show"
-            />
-            <Button color="inherit">Icon1</Button>
-            <Button color="inherit">Icon2</Button>
+            <Typography className={classes.title}>お問合せチャット</Typography>
+            <Loop color="inherit" onClick={onClickLoop} />
+            <Clear color="inherit" />
           </Toolbar>
         </AppBar>
         <div className={classes.contentBlock} id={"scroll-test"}>
