@@ -20,8 +20,10 @@ const useStyles = makeStyles((theme: Theme) =>
           : `${theme.spacing(1)}px ${theme.spacing(1)}px ${theme.spacing(
               1
             )}px auto`,
+        padding: `${theme.spacing(1)}px`,
         backgroundColor: props.baloon.isOwn ? "#ffcccc" : "#ccffcc",
-        width: "70%"
+        width: "70%",
+        textAlign: "left"
       };
     }
   })

@@ -33,14 +33,16 @@ export const generateBaloons = (
   }
   const baloonOptions = generateBaloonOpions(contexts, context);
   const ownMessageBaloons = generateOwnMessageBaloons(context, baloonOptions);
-  return [
-    {
-      isOwn: false,
-      messageString: context.questionersMessageString,
-      baloonOptions: []
-    },
-    ...ownMessageBaloons
-  ];
+  const questionersMessageBaloon = context.questionersMessageString.length
+    ? [
+        {
+          isOwn: false,
+          messageString: context.questionersMessageString,
+          baloonOptions: []
+        }
+      ]
+    : [];
+  return [...questionersMessageBaloon, ...ownMessageBaloons];
 };
 
 const generateBaloonOpions = (

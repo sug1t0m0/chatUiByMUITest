@@ -13,8 +13,8 @@ const useStyles = makeStyles((theme: Theme) =>
       return {
         margin: `${theme.spacing(1)}px`,
         backgroundColor: "#ff2222",
-        width: "70%",
-        cursor: "pointer"
+        cursor: "pointer",
+        padding: `${theme.spacing(1)}px`
       };
     }
   })
