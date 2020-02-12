@@ -3,6 +3,7 @@ import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import { BaloonOption } from "../../logics/generateBaloons";
+import classNames from "classnames";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -34,7 +35,10 @@ export const OptionPaper: React.FC<Props> = (props: Props) => {
     props.resetCount();
   };
   return (
-    <Paper className={classes.paper} onClick={handleClick}>
+    <Paper
+      className={classNames(classes.paper, "option_paper")}
+      onClick={handleClick}
+    >
       <Typography>{props.baloonOption.optionString}</Typography>
     </Paper>
   );

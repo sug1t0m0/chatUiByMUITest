@@ -1,10 +1,12 @@
-import React, { useEffect } from "react";
+import * as React from "react";
+import { useEffect } from "react";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grow from "@material-ui/core/Grow";
 import { Baloon } from "../../logics/generateBaloons";
 import Typography from "@material-ui/core/Typography";
 import { OptionPaper } from "../atoms/optionPaper";
+import classNames from "classnames";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -62,7 +64,12 @@ export const BaloonPaper: React.FC<Props> = (props: Props) => {
           style={{ transformOrigin: props.baloon.isOwn ? "0 0 0" : "100% 0 0" }}
           {...{ timeout: 900 }}
         >
-          <Paper elevation={4} className={classes.paper}>
+          <Paper
+            elevation={4}
+            className={classNames(classes.paper, "balloon_paper", {
+              is_own: props.baloon.isOwn
+            })}
+          >
             <Typography>{props.baloon.messageString}</Typography>
             {props.baloon.baloonOptions.map((baloonOption, i) => {
               return (
@@ -80,7 +87,12 @@ export const BaloonPaper: React.FC<Props> = (props: Props) => {
           </Paper>
         </Grow>
       ) : (
-        <Paper elevation={4} className={classes.paper}>
+        <Paper
+          elevation={4}
+          className={classNames(classes.paper, "balloon_paper", {
+            is_own: props.baloon.isOwn
+          })}
+        >
           <Typography>{props.baloon.messageString}</Typography>
           {props.baloon.baloonOptions.map((baloonOption, i) => {
             return (
