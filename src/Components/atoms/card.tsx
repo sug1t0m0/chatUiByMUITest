@@ -8,6 +8,7 @@ import Paper from "@material-ui/core/Paper";
 import { BaloonPaper } from "../molecules/baloonPaper";
 import Loop from "@material-ui/icons/Loop";
 import Clear from "@material-ui/icons/Clear";
+import IconButton from "@material-ui/core/IconButton";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -15,15 +16,17 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1
     },
     appBar: {
-      borderRadius: "4px 4px 0 0 / 4px 4px 0 0"
+      borderRadius: "4px 4px 0 0 / 4px 4px 0 0",
+      backgroundColor: "#1073bb"
     },
     contentBlock: {
       overflowY: "scroll",
-      height: "250px"
+      height: "250px",
+      backgroundColor: "#f5f5ff"
     },
     paper: {},
-    menuButton: {
-      marginRight: theme.spacing(2)
+    iconButton: {
+      color: "#ffffff"
     },
     title: {
       flexGrow: 1
@@ -77,7 +80,7 @@ export default function ButtonAppBar() {
     {
       id: 1,
       optionString: "会社について知りたい",
-      questionersMessageString: "どんな会社ですか？",
+      questionersMessageString: "会社について知りたい",
       ownMessages: [
         "株式会社〇〇にご興味をお持ちいただき、ありがとうございます。",
         "株式会社〇〇は業務用の〇〇を製造販売している会社です。"
@@ -96,7 +99,7 @@ export default function ButtonAppBar() {
     {
       id: 2,
       optionString: "発注・配達・納品について",
-      questionersMessageString: "それはなんですか？",
+      questionersMessageString: "発注・配達・納品について",
       ownMessages: [
         "冷凍寿司にご興味をお持ちいただき、ありがとうございます。",
         "製品はドライアイスを同封し配送業者に依頼しお 届けとなります。"
@@ -123,7 +126,7 @@ export default function ButtonAppBar() {
     {
       id: 3,
       optionString: "商品について知りたい",
-      questionersMessageString: "どのような商品を取り扱っていますか？",
+      questionersMessageString: "商品について知りたい",
       ownMessages: [
         "株式会社〇〇にご興味をお持ちいただき、ありがとうございます。",
         "ヒロノの業務用冷凍寿司は自然解凍が可能です。 巻寿司・てまり寿司などの各種お寿司を取り揃えております。"
@@ -154,8 +157,7 @@ export default function ButtonAppBar() {
     {
       id: 4,
       optionString: "会社情報が詳しく知りたい",
-      questionersMessageString:
-        "会社情報が掲載されてるページを教えてください。",
+      questionersMessageString: "会社情報が詳しく知りたい",
       ownMessages: [
         "会社案内からご確認ください。ダウンロードページ にて会社情報をダウンロードできます。 "
       ],
@@ -168,12 +170,17 @@ export default function ButtonAppBar() {
     },
     {
       id: 5,
-      optionString: "営業日・営業時間が知りたい",
+      optionString: "営業日・営業時間は？",
       questionersMessageString: "営業日・営業時間は？",
       ownMessages: [
         "会社案内からご確認ください。受付業務は平日AM9時～PM3時までとなります。"
       ],
-      options: []
+      options: [
+        {
+          id: 6,
+          url: "id_6"
+        }
+      ]
     },
     {
       id: 6,
@@ -185,7 +192,7 @@ export default function ButtonAppBar() {
     {
       id: 7,
       optionString: "納品日・納品時間について知りたい",
-      questionersMessageString: "納品日・納品時間について教えてください。",
+      questionersMessageString: "納品日・納品時間について知りたい",
       ownMessages: [
         "出荷日は月曜日・水曜日・金曜日となります。",
         "納品は、出荷日から1日又は2日程度で納品となります。",
@@ -195,8 +202,8 @@ export default function ButtonAppBar() {
     },
     {
       id: 8,
-      optionString: "商品のリードタイムが知りたい",
-      questionersMessageString: "商品のリードタイムを教えてください。",
+      optionString: "商品のリードタイムを教えてください",
+      questionersMessageString: "商品のリードタイムを教えてください",
       ownMessages: [
         "出荷日前日の15時までにご注文ください。（繁忙期は別途ご案内いたします）",
         "在庫状況により出荷できない場合があるので発注はお早めにお願いします。"
@@ -205,7 +212,7 @@ export default function ButtonAppBar() {
     },
     {
       id: 9,
-      optionString: "納品日指定について知りたい",
+      optionString: "配送会社の納品日指定で月曜日や日曜日の納品は可能ですか？",
       questionersMessageString:
         "配送会社の納品日指定で月曜日や日曜日の納品は可能ですか？",
       ownMessages: [
@@ -215,7 +222,7 @@ export default function ButtonAppBar() {
     },
     {
       id: 10,
-      optionString: "個人での購入について知りたい",
+      optionString: "個人での購入できますか？",
       questionersMessageString: "個人での購入できますか？",
       ownMessages: [
         "商品は全て業務用商品となります。表記が業務用表記の為申し訳ございませんが販売することはできません。"
@@ -224,8 +231,8 @@ export default function ButtonAppBar() {
     },
     {
       id: 11,
-      optionString: "製品規格について",
-      questionersMessageString: "製品規格はありますか",
+      optionString: "製品規格書が欲しい",
+      questionersMessageString: "製品規格書が欲しい",
       ownMessages: ["製品規格書は商品ページにて確認いただけます。"],
       options: [
         {
@@ -236,8 +243,8 @@ export default function ButtonAppBar() {
     },
     {
       id: 12,
-      optionString: "見積もりについて",
-      questionersMessageString: "見積もりについて教えてください。",
+      optionString: "見積りが欲しい",
+      questionersMessageString: "見積りが欲しい",
       ownMessages: ["見積り依頼からご依頼ください。"],
       options: [
         {
@@ -249,8 +256,7 @@ export default function ButtonAppBar() {
     {
       id: 13,
       optionString: "商品のロット・賞味期限が知りたい",
-      questionersMessageString:
-        "商品のロット・賞味期限について教えてください。",
+      questionersMessageString: "商品のロット・賞味期限が知りたい",
       ownMessages: ["商品ページでご確認ください。"],
       options: [
         {
@@ -262,7 +268,7 @@ export default function ButtonAppBar() {
     {
       id: 14,
       optionString: "解凍方法が知りたい",
-      questionersMessageString: "解凍方法について教えてください",
+      questionersMessageString: "解凍方法が知りたい",
       ownMessages: [
         "解凍方法のページをご覧ください。また、YouTubeでも詳しく説明しています。"
       ],
@@ -275,7 +281,7 @@ export default function ButtonAppBar() {
     },
     {
       id: 15,
-      optionString: "サンプルはもらえますか",
+      optionString: "サンプルはもらえますか？",
       questionersMessageString: "サンプルはもらえますか？",
       ownMessages: [
         "無料サンプルをご用意しています。サンプル依頼ページからご依頼ください。 "
@@ -325,9 +331,10 @@ export default function ButtonAppBar() {
   ];
 
   const BaloonPapers = ids.reduce((prevBaloonPapers, id, index) => {
+    const activeId = ids[ids.length - 1];
     if (index < ids.length - 1) {
       const isNew = false;
-      const baloons = generateBaloons(id, sampleMessags).map(
+      const baloons = generateBaloons(id, activeId, sampleMessags).map(
         (b, i): React.Element[] => (
           <BaloonPaper
             key={`${index}${i}`}
@@ -337,18 +344,21 @@ export default function ButtonAppBar() {
       );
       prevBaloonPapers.push(...baloons);
     } else {
-      const baloons = generateBaloons(id, sampleMessags).reduce((pb, b, i) => {
-        const isNew = i === count;
-        if (i <= count) {
-          pb.push(
-            <BaloonPaper
-              key={`${index}${i}`}
-              {...{ baloon: b, isNew, countUp, setId, resetCount, updateIds }}
-            />
-          );
-        }
-        return pb;
-      }, []);
+      const baloons = generateBaloons(id, activeId, sampleMessags).reduce(
+        (pb, b, i) => {
+          const isNew = i === count;
+          if (i <= count) {
+            pb.push(
+              <BaloonPaper
+                key={`${index}${i}`}
+                {...{ baloon: b, isNew, countUp, setId, resetCount, updateIds }}
+              />
+            );
+          }
+          return pb;
+        },
+        []
+      );
       prevBaloonPapers.push(...baloons);
     }
     return prevBaloonPapers;
@@ -362,28 +372,18 @@ export default function ButtonAppBar() {
     }
   };
 
-  console.warn(generateBaloons(id, sampleMessags));
-  const messages = generateBaloons(id, sampleMessags).reduce(
-    (prevElems, baloon, index: number) => {
-      const isNew = index === count;
-      if (index <= count) {
-        prevElems.push(
-          <BaloonPaper key={index} {...{ baloon, isNew, countUp, setId }} />
-        );
-      }
-      return prevElems;
-    },
-    []
-  );
-
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
         <AppBar className={classes.appBar} position="static">
           <Toolbar>
             <Typography className={classes.title}>お問合せチャット</Typography>
-            <Loop color="inherit" onClick={onClickLoop} />
-            <Clear color="inherit" />
+            <IconButton className={classes.iconButton}>
+              <Loop onClick={onClickLoop} />
+            </IconButton>
+            <IconButton className={classes.iconButton}>
+              <Clear color="inherit" />
+            </IconButton>
           </Toolbar>
         </AppBar>
         <div className={classes.contentBlock} id={"scroll-test"}>

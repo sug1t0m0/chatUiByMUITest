@@ -21,8 +21,10 @@ const useStyles = makeStyles((theme: Theme) =>
               1
             )}px auto`,
         padding: `${theme.spacing(1)}px`,
-        backgroundColor: props.baloon.isOwn ? "#ffcccc" : "#ccffcc",
-        width: "70%",
+        backgroundColor: props.baloon.isOwn
+          ? "rgba(255,255,255,1)"
+          : "rgba(249, 227, 170, 1)",
+        maxWidth: "70%",
         textAlign: "left"
       };
     }

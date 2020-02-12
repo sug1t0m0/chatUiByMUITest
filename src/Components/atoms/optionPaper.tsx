@@ -12,7 +12,8 @@ const useStyles = makeStyles((theme: Theme) =>
     paper: (props: Props) => {
       return {
         margin: `${theme.spacing(1)}px`,
-        backgroundColor: "#ff2222",
+        backgroundColor: "#1073bb",
+        color: "#ffffff",
         cursor: "pointer",
         padding: `${theme.spacing(1)}px`
       };
