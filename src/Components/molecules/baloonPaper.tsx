@@ -7,6 +7,7 @@ import { Baloon } from "../../logics/generateBaloons";
 import Typography from "@material-ui/core/Typography";
 import { OptionPaper } from "../atoms/optionPaper";
 import classNames from "classnames";
+import { StageSpinner } from "react-spinners-kit";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -43,13 +44,28 @@ interface Props {
 }
 export const BaloonPaper: React.FC<Props> = (props: Props) => {
   const classes = useStyles(props);
+  const [isLoading, setIsLoading] = React.useState(true);
   useEffect(() => {
     const target = document.getElementById("scroll-test");
-    if (target) {
-      target.scrollTop = target.scrollHeight;
-    }
     if (props.isNew) {
-      setTimeout(props.countUp, 1000);
+      setTimeout(() => {
+        if (target) {
+          target.scrollTop = target.scrollHeight;
+        }
+      }, 200);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 1600);
+      setTimeout(() => {
+        if (target) {
+          target.scrollTop = target.scrollHeight;
+        }
+      }, 2400);
+      if (props.baloon.isOwn) {
+        setTimeout(props.countUp, 2400);
+      } else {
+        setTimeout(props.countUp, 800);
+      }
     }
     return undefined;
   }, []);
@@ -59,33 +75,56 @@ export const BaloonPaper: React.FC<Props> = (props: Props) => {
     <div className={classes.container}>
       {/* Conditionally applies the timeout prop to change the entry speed. */}
       {props.isNew ? (
-        <Grow
-          in={true}
-          style={{ transformOrigin: props.baloon.isOwn ? "0 0 0" : "100% 0 0" }}
-          {...{ timeout: 900 }}
-        >
-          <Paper
-            elevation={4}
-            className={classNames(classes.paper, "balloon_paper", {
-              is_own: props.baloon.isOwn
-            })}
+        isLoading && props.baloon.isOwn ? (
+          <Grow
+            in={true}
+            key={0}
+            style={{
+              transformOrigin: props.baloon.isOwn ? "0 0 0" : "100% 0 0"
+            }}
+            {...{ timeout: 200 }}
           >
-            <Typography>{props.baloon.messageString}</Typography>
-            {props.baloon.baloonOptions.map((baloonOption, i) => {
-              return (
-                <OptionPaper
-                  {...{
-                    key: i,
-                    baloonOption,
-                    setId: props.setId,
-                    updateIds: props.updateIds,
-                    resetCount: props.resetCount
-                  }}
-                />
-              );
-            })}
-          </Paper>
-        </Grow>
+            <Paper
+              elevation={4}
+              className={classNames(classes.paper, "balloon_paper", {
+                is_own: props.baloon.isOwn
+              })}
+            >
+              <StageSpinner size={30} color="#1073bb" loading={isLoading} />
+            </Paper>
+          </Grow>
+        ) : (
+          <Grow
+            in={true}
+            key={1}
+            style={{
+              transformOrigin: props.baloon.isOwn ? "0 0 0" : "100% 0 0"
+            }}
+            {...{ timeout: 800 }}
+          >
+            <Paper
+              elevation={4}
+              className={classNames(classes.paper, "balloon_paper", {
+                is_own: props.baloon.isOwn
+              })}
+            >
+              <Typography>{props.baloon.messageString}</Typography>
+              {props.baloon.baloonOptions.map((baloonOption, i) => {
+                return (
+                  <OptionPaper
+                    {...{
+                      key: i,
+                      baloonOption,
+                      setId: props.setId,
+                      updateIds: props.updateIds,
+                      resetCount: props.resetCount
+                    }}
+                  />
+                );
+              })}
+            </Paper>
+          </Grow>
+        )
       ) : (
         <Paper
           elevation={4}

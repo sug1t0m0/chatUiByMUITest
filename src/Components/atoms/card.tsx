@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) =>
     contentBlock: {
       overflowY: "scroll",
       height: "250px",
-      backgroundColor: "#f5f5ff"
+      backgroundColor: "#E3F0FA"
     },
     paper: {},
     iconButton: {
