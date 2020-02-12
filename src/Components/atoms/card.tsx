@@ -382,15 +382,22 @@ export default function ButtonAppBar() {
         >
           <Toolbar>
             <Typography className={classes.title}>お問合せチャット</Typography>
-            <IconButton className={classNames(classes.iconButton, "icon_button")}>
+            <IconButton
+              className={classNames(classes.iconButton, "icon_button")}
+            >
               <Loop onClick={onClickLoop} />
             </IconButton>
-            <IconButton className={classNames(classes.iconButton, "icon_button")}>
+            <IconButton
+              className={classNames(classes.iconButton, "icon_button")}
+            >
               <Clear color="inherit" />
             </IconButton>
           </Toolbar>
         </AppBar>
-        <div className={classes.contentBlock} id={"scroll-test"}>
+        <div
+          className={classNames(classes.contentBlock, "content_block")}
+          id={"scroll-test"}
+        >
           {BaloonPapers}
         </div>
       </Paper>
