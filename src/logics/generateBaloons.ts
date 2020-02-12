@@ -25,13 +25,15 @@ export interface Baloon {
 // TODO テストを書く
 export const generateBaloons = (
   contextId: number,
+  activeId: number,
   contexts: Context[]
 ): Baloon[] => {
   const context = contexts.find(c => c.id === contextId);
   if (!context) {
     return [];
   }
-  const baloonOptions = generateBaloonOpions(contexts, context);
+  const baloonOptions =
+    activeId === contextId ? generateBaloonOpions(contexts, context) : [];
   const ownMessageBaloons = generateOwnMessageBaloons(context, baloonOptions);
   const questionersMessageBaloon = context.questionersMessageString.length
     ? [
