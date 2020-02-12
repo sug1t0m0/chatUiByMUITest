@@ -9,6 +9,7 @@ import { BaloonPaper } from "../molecules/baloonPaper";
 import Loop from "@material-ui/icons/Loop";
 import Clear from "@material-ui/icons/Clear";
 import IconButton from "@material-ui/core/IconButton";
+import classNames from "classnames";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -374,14 +375,17 @@ export default function ButtonAppBar() {
 
   return (
     <div className={classes.root}>
-      <Paper className={classes.paper}>
-        <AppBar className={classes.appBar} position="static">
+      <Paper className={classNames(classes.paper, "chat_like_ui")}>
+        <AppBar
+          className={classNames(classes.appBar, "header")}
+          position="static"
+        >
           <Toolbar>
             <Typography className={classes.title}>お問合せチャット</Typography>
-            <IconButton className={classes.iconButton}>
+            <IconButton className={classNames(classes.iconButton, "icon_button")}>
               <Loop onClick={onClickLoop} />
             </IconButton>
-            <IconButton className={classes.iconButton}>
+            <IconButton className={classNames(classes.iconButton, "icon_button")}>
               <Clear color="inherit" />
             </IconButton>
           </Toolbar>
